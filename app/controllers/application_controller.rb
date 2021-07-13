@@ -1,3 +1,5 @@
+require 'pry'
+
 class ApplicationController < Sinatra::Base
   register Sinatra::CrossOrigin
 
@@ -41,5 +43,15 @@ class ApplicationController < Sinatra::Base
   get "/groups/:id/users" do
     Group.find(params[:id]).users.to_json
   end
+
+  post "/votes" do
+    puts params.inspect
+    vote_params = params.select do |key|
+      ["first", "second", "third", "user_id", "group_id"].include?(key)
+    end
+    user_group = UserGroup.find_by(user_id: params[user_id], group_id: params[group_id])
+    puts user_group.user_id
+  end
+  #WE NEED TO FIX THIS
 
 end
