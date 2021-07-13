@@ -34,4 +34,12 @@ class ApplicationController < Sinatra::Base
     User.find(params[:id]).groups.to_json
   end
 
+  get "/groups/:id/movies" do
+    Group.find(params[:id]).movies.to_json
+  end
+  
+  get "/groups/:id/users" do
+    Group.find(params[:id]).users.to_json
+  end
+
 end
