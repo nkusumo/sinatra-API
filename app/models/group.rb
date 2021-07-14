@@ -26,7 +26,6 @@ class Group < ActiveRecord::Base
             rank_twos = []
             elim_users.each {|user| rank_twos << votes.find_by(user_group_id: user, rank: 2)}
             round_2 = [*survivors, *rank_twos]
-            binding.pry
             round_2_count = round_2.group_by {|vote| vote.movie_id}
             round_2_hash = {}
             round_2_count.each {|k, v| round_2_hash[k] = v.count}
@@ -37,6 +36,7 @@ class Group < ActiveRecord::Base
                 smallest_amount = round_2_hash.min_by{|k, v| v}[1]
                 losers = round_2_hash.select {|k, v| v == smallest_amount }.keys
                 elim_users = []
+                # improperly handles ties
                 losers.each do |movie_id| 
                     elim_votes = votes.where(movie_id: movie_id, :rank => [1,2]) # OR rank 2
                     elim_votes.each do |vote| 

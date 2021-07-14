@@ -57,15 +57,8 @@ class ApplicationController < Sinatra::Base
     vote_array.to_json
   end
 
-  # get "/votes/:group_id" do
-  #   Vote.
-  #   # all votes for group where rank = 1
-  #   # count how many rank 1 for each movie id
-  #   # if any movie has more than half of the rank 1 votes it automatically wins
-  #   # else
-  #   # eliminate movies with no rank 1 votes and lowest # of rank 1 votes
-  #   # for each user whose rank 1 was eliminated, check their rank 2 and combine with rank 1s
-
-  # end
+  get "/winner/:group_id" do
+    Group.find(params[:group_id]).winning_movie.to_json
+  end
 
 end
