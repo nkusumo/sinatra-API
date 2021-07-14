@@ -81,4 +81,11 @@ class ApplicationController < Sinatra::Base
     "Success!".to_json
   end
 
+  post "/new-user" do
+    puts params.inspect
+    user_param = params.select {|key| ["name"].include?(key)}
+    User.create(name: user_param["name"])
+    User.last.to_json
+  end
+
 end
