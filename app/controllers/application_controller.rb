@@ -49,9 +49,23 @@ class ApplicationController < Sinatra::Base
     vote_params = params.select do |key|
       ["first", "second", "third", "user_id", "group_id"].include?(key)
     end
-    user_group = UserGroup.find_by(user_id: params[user_id], group_id: params[group_id])
-    puts user_group.user_id
+    user_group = UserGroup.find_by(user_id: vote_params["user_id"], group_id: vote_params["group_id"])
+    vote_array = []
+    vote_array << Vote.create(user_group_id: user_group.id, movie_id: vote_params["first"], rank: 1)
+    vote_array << Vote.create(user_group_id: user_group.id, movie_id: vote_params["second"], rank: 2)
+    vote_array << Vote.create(user_group_id: user_group.id, movie_id: vote_params["third"], rank: 3)
+    vote_array.to_json
   end
-  #WE NEED TO FIX THIS
+
+  # get "/votes/:group_id" do
+  #   Vote.
+  #   # all votes for group where rank = 1
+  #   # count how many rank 1 for each movie id
+  #   # if any movie has more than half of the rank 1 votes it automatically wins
+  #   # else
+  #   # eliminate movies with no rank 1 votes and lowest # of rank 1 votes
+  #   # for each user whose rank 1 was eliminated, check their rank 2 and combine with rank 1s
+
+  # end
 
 end

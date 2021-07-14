@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_12_192304) do
+ActiveRecord::Schema.define(version: 2021_07_14_151652) do
 
   create_table "group_movies", force: :cascade do |t|
     t.integer "group_id"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2021_07_12_192304) do
     t.integer "user_group_id"
     t.integer "movie_id"
     t.integer "rank"
+    t.boolean "eliminated"
   end
 
 end
