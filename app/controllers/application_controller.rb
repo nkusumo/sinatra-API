@@ -61,4 +61,24 @@ class ApplicationController < Sinatra::Base
     Group.find(params[:group_id]).winning_movie.to_json
   end
 
+  post "/new-group" do
+    puts params.inspect
+    group_params = params.select do |key|
+      ["name", "members", "movies"].include?(key)
+    end
+    Group.create(group_name: group_params["name"])
+    group_id = Group.last.id
+
+    group_params["members"].each {|id| UserGroup.create(user_id: id, group_id: group_id)}
+    movieIDs = []
+    group_params["movies"].each do |movie|
+      Movie.create(title: movie[:title], genre: movie[:genre], release_date: movie[:release_date], image: movie[:image], rating: movie[:rating])
+      movieIDs << Movie.last.id
+    end
+
+    movieIDs.each {|id| GroupMovie.create(movie_id: id, group_id: group_id)}
+
+    "Success!".to_json
+  end
+
 end
