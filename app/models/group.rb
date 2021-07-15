@@ -13,12 +13,16 @@ class Group < ActiveRecord::Base
         round_1_max = round_1_count.values.max
         round_1_max_hash = round_1_count.select {|k, v| v==round_1_max}
         if round_1_max_hash.values.sum == users.count
-            return Movie.find(round_1_max_hash.keys.sample)
+            winnerID = round_1_max_hash.keys.sample
+            self.update(winner: winnerID)
+            return Movie.find(winnerID)
         end
 
         round_1_top = round_1_count.max_by{|k, v| v}
         if round_1_top[1] > users.count/2
-            return Movie.find(round_1_top[0])
+            winnerID = round_1_top[0]
+            self.update(winner: winnerID)
+            return Movie.find(winnerID)
         else
             smallest_amount = round_1_count.min_by{|k, v| v}[1]
             losers = round_1_count.select {|k, v| v == smallest_amount }.keys
@@ -44,12 +48,16 @@ class Group < ActiveRecord::Base
             round_2_max_hash = round_2_hash.select {|k, v| v==round_2_max}
             # if round_2_max_hash.count > 1 && round_2_max.to_f == user.count.to_f/2
             if round_2_max_hash.values.sum == user.count
-                return Movie.find(round_2_max_hash.keys.sample)
+                winnerID = round_2_max_hash.keys.sample
+                self.update(winner: winnerID)
+                return Movie.find(winnerID)
             end
 
             round_2_top = round_2_hash.max_by{|k, v| v}
             if round_2_top[1] > users.count/2
-                return Movie.find(round_2_top[0])
+                winnerID = round_2_top[0]
+                self.update(winner: winnerID)
+                return Movie.find(winnerID)
             else
                 smallest_amount = round_2_hash.min_by{|k, v| v}[1]
                 losers = round_2_hash.select {|k, v| v == smallest_amount }.keys
@@ -74,11 +82,15 @@ class Group < ActiveRecord::Base
                 round_3_max = round_3_hash.values.max
                 round_3_max_hash = round_3_hash.select {|k, v| v==round_3_max}
                 if round_3_max_hash.values.sum == user.count
-                    return Movie.find(round_3_max_hash.keys.sample)
+                    winnerID = round_3_max_hash.keys.sample
+                    self.update(winner: winnerID)
+                    return Movie.find(winnerID)
                 end
 
                 round_3_top = round_3_hash.max_by{|k, v| v}
-                return Movie.find(round_3_top[0])
+                winnerID = round_3_top[0]
+                self.update(winner: winnerID)
+                return Movie.find(winnerID)
             end
         end
         

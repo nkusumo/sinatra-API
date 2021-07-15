@@ -44,6 +44,16 @@ class ApplicationController < Sinatra::Base
     Group.find(params[:id]).users.to_json
   end
 
+  get "/groups/:id/winner" do
+    winner = Group.find(params[:id]).winner
+    if winner
+      Movie.find(winner).to_json
+    else
+      empty = {}
+      empty.to_json
+    end
+  end
+
   post "/votes" do
     puts params.inspect
     vote_params = params.select do |key|

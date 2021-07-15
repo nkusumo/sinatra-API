@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_14_151652) do
+ActiveRecord::Schema.define(version: 2021_07_15_163349) do
 
   create_table "group_movies", force: :cascade do |t|
     t.integer "group_id"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2021_07_14_151652) do
   create_table "groups", force: :cascade do |t|
     t.string "group_name"
     t.integer "host_id"
+    t.integer "winner"
   end
 
   create_table "movies", force: :cascade do |t|
