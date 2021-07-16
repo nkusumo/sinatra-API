@@ -13,7 +13,7 @@ User.reset_pk_sequence
 Vote.reset_pk_sequence
 
 Group.create(group_name: "FlatMates Movie Crew")
-Group.create(group_name: "Something Else")
+Group.create(group_name: "Friday Flix")
 
 users = ["Kyle", "Nisa", "Greg", "Arthur", "Lucy", "Adrienne", "Carlos", "Edward", "Ryan", "Brendan", "Kenny", "Terry", "Shevon", "Adreena", "Zeus", "Darren", "Jack", "Dan"]
 users.each {|user| User.create(name: user)}
